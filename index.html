@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Ropa - Fashion Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="card-header">
+        //carga del header
+    </div>
+
+    <main class="main">
+        <section class="hero">
+            <div class="hero-background">
+                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Fashion Store" class="hero-bg-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <h2 class="hero-title">Nueva Colección</h2>
+                <p class="hero-subtitle">Descubre las últimas tendencias en moda</p>
+                <button class="btn-primary" id="viewCollectionBtn">Ver Colección</button>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="container">
+                <div class="section-header">
+                    <h3>Productos Destacados</h3>
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">Todos</button>
+                        <button class="filter-btn" data-filter="hombre">Hombre</button>
+                        <button class="filter-btn" data-filter="mujer">Mujer</button>
+                        <button class="filter-btn" data-filter="accesorios">Accesorios</button>
+                    </div>
+                </div>
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically loaded here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="auth-container">
+                <form class="auth-form" id="loginForm">
+                    <h3>Iniciar Sesión</h3>
+                    <div class="credentials-info">
+                        <p><strong>Credenciales de prueba:</strong></p>
+                        <p>Email: <code>admin@fashionstore.com</code></p>
+                        <p>Contraseña: <code>admin123</code></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" class="btn-primary btn-full">Ingresar</button>
+                    <div class="login-error" id="loginError" style="display: none;">
+                        <p>Credenciales incorrectas. Usa las credenciales de prueba.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal" id="quickViewModal">
+        <div class="modal-content quick-view-modal-content">
+            <span class="close" id="closeQuickViewModal">&times;</span>
+            <div class="quick-view-container">
+                <div class="quick-view-image">
+                    <img id="quickViewImage" src="" alt="" class="quick-view-img">
+                </div>
+                <div class="quick-view-info">
+                    <div class="quick-view-header">
+                        <span class="quick-view-category" id="quickViewCategory"></span>
+                        <button class="btn-wishlist-quick" id="quickViewWishlist">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <h2 class="quick-view-title" id="quickViewTitle"></h2>
+                    <p class="quick-view-price" id="quickViewPrice"></p>
+                    
+                    <div class="quick-view-description">
+                        <h4>Descripción</h4>
+                        <p id="quickViewDescription"></p>
+                    </div>
+                    
+                    <div class="quick-view-details">
+                        <h4>Detalles del Producto</h4>
+                        <ul id="quickViewFeatures"></ul>
+                    </div>
+                    
+                    <div class="quick-view-sizes">
+                        <h4>Tallas Disponibles</h4>
+                        <div class="size-options" id="quickViewSizes">
+                            <button class="size-btn" data-size="XS">XS</button>
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn active" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                            <button class="size-btn" data-size="XL">XL</button>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-view-quantity">
+                        <h4>Cantidad</h4>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" id="decreaseQty">-</button>
+                            <input type="number" class="quantity-input" id="quickViewQty" value="1" min="1" max="10">
+                            <button class="quantity-btn" id="increaseQty">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="quick-view-actions">
+                        <button class="btn-add-cart-quick" id="addToCartQuick">
+                            <i class="fas fa-shopping-cart"></i>
+                            Añadir al Carrito
+                        </button>
+                        <button class="btn-buy-now" id="buyNowBtn">
+                            Comprar Ahora
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Collection Modal -->
+    <div class="modal" id="collectionModal">
+        <div class="modal-content collection-modal-content">
+            <span class="close" id="closeCollectionModal">&times;</span>
+            <div class="collection-container">
+                <h2>Nueva Colección 2024</h2>
+                <div class="collection-hero">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Nueva Colección" class="collection-image">
+                    <div class="collection-overlay">
+                        <h3>Tendencias de Temporada</h3>
+                        <p>Descubre los últimos estilos que están marcando la pauta en el mundo de la moda</p>
+                    </div>
+                </div>
+                <div class="collection-categories">
+                    <div class="collection-category" data-category="hombre">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Colección Hombre">
+                        <div class="category-info">
+                            <h4>Hombre</h4>
+                            <p>Estilo urbano y elegante</p>
+                            <button class="btn-category">Ver Productos</button>
+                        </div>
+                    </div>
+                    <div class="collection-category" data-category="mujer">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c669-b6c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Colección Mujer">
+                        <div class="category-info">
+                            <h4>Mujer</h4>
+                            <p>Sofisticación y comodidad</p>
+                            <button class="btn-category">Ver Productos</button>
+                        </div>
+                    </div>
+                    <div class="collection-category" data-category="accesorios">
+                        <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Accesorios">
+                        <div class="category-info">
+                            <h4>Accesorios</h4>
+                            <p>Complementos perfectos</p>
+                            <button class="btn-category">Ver Productos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Carrito de Compras</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn-primary btn-full">Proceder al Pago</button>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        //carga del footer
+    </div>
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
